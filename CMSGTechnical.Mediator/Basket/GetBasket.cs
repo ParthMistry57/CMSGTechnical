@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CMSGTechnical.Domain.Interfaces;
 using CMSGTechnical.Mediator.Dtos;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMSGTechnical.Mediator.Basket
 {
@@ -23,7 +24,10 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(GetBasket request, CancellationToken cancellationToken)
         {
-            var r = await Baskets.Get(request.Id, cancellationToken);
+            var query = Baskets.GetAll().Where(b => b.Id == request.Id).Include(b => b.MenuItems);
+            var r = await query.FirstOrDefaultAsync(cancellationToken);
+            if (r == null)
+                throw new InvalidOperationException($"Basket with id {request.Id} not found");
             return r.ToDto();
         }
     }

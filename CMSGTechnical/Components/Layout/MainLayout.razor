@@ -1,4 +1,4 @@
-﻿@using CMSGTechnical.Code
+@using CMSGTechnical.Code
 @using CMSGTechnical.Components.Shared
 @using CMSGTechnical.Domain.Models
 @using CMSGTechnical.Mediator.Basket
@@ -39,7 +39,7 @@
     protected override async Task OnInitializedAsync()
     {
         var basket = await Mediator.Send(new GetBasket(1));
-        BasketService = new BasketService(basket);
+        BasketService = new BasketService(basket, Mediator);
     }
 
 

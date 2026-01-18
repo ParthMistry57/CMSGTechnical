@@ -1,0 +1,355 @@
+## .NET / Visual Studio / Blazor Server Project
+## Based on: https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
+
+################################################################################
+# Visual Studio user-specific files
+################################################################################
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Visual Studio cache/options directory
+.vs/
+.vshistory/
+.localhistory/
+
+# Visual Studio 2017 auto generated files
+Generated\ Files/
+
+################################################################################
+# Build results
+################################################################################
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Build artifacts
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+*.binlog
+
+################################################################################
+# Visual Studio cache files
+################################################################################
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!?*.[Cc]ache/
+
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+
+################################################################################
+# Test Results
+################################################################################
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+_Chutzpah*
+
+################################################################################
+# Code Coverage Tools
+################################################################################
+*.dotCover
+.axoCover/*
+!.axoCover/settings.json
+coverage*.json
+coverage*.xml
+coverage*.info
+*.coverage
+*.coveragexml
+OpenCover/
+
+################################################################################
+# Visual Studio profiler
+################################################################################
+*.psess
+*.vsp
+*.vspx
+*.sap
+*.e2e
+
+################################################################################
+# NuGet Packages
+################################################################################
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+################################################################################
+# ASP.NET Core / Blazor generated files
+################################################################################
+# Blazor scoped CSS files (generated from .razor.css files)
+*.rz.scp.css
+*.bundle.scp.css
+*.styles.css
+# But keep manually created CSS files in wwwroot
+!wwwroot/**/*.css
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+################################################################################
+# Publishing / Deployment
+################################################################################
+publish/
+*.[Pp]ublish.xml
+*.azurePubxml
+*.pubxml
+*.publishproj
+PublishScripts/
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.appx
+*.appxbundle
+*.appxupload
+
+################################################################################
+# Azure
+################################################################################
+csx/
+*.csx
+*.azurebuild
+ecf/
+rcf/
+ASALocalRun/
+
+################################################################################
+# ReSharper / Rider / Other IDE Tools
+################################################################################
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.idea/
+*.sln.iml
+*.iml
+.cr/personal
+
+################################################################################
+# Other Tools
+################################################################################
+# TeamCity
+_TeamCity*
+
+# NCrunch
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
+
+# MightyMoose
+*.mm.*
+AutoTest.Net/
+
+# Tabs Studio
+*.tss
+
+# Telerik's JustMock
+*.jmconfig
+
+# GhostDoc
+*.GhostDoc.xml
+
+# Fody
+FodyWeavers.xsd
+
+# MFractors
+.mfractor/
+
+# Ionide
+.ionide/
+
+# NVidia Nsight
+*.nvuser
+
+# Microsoft Fakes
+FakesAssemblies/
+
+################################################################################
+# Backup & Report files
+################################################################################
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+UpgradeLog*.htm
+ServiceFabricBackup/
+*.rptproj.bak
+
+################################################################################
+# SQL Server files
+################################################################################
+*.mdf
+*.ldf
+*.ndf
+
+################################################################################
+# Business Intelligence projects
+################################################################################
+*.rdl.data
+*.bim.layout
+*.bim_*.settings
+*.rptproj.rsuser
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+
+################################################################################
+# Other generated files
+################################################################################
+ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+orleans.codegen.cs
+Generated_Code/
+*.plg
+*.opt
+*.vbw
+*.vbp
+*.dsw
+*.dsp
+
+# Visual Studio LightSwitch
+**/*.HTMLClient/GeneratedArtifacts
+**/*.DesktopClient/GeneratedArtifacts
+**/*.DesktopClient/ModelManifest.xml
+**/*.Server/GeneratedArtifacts
+**/*.Server/ModelManifest.xml
+_Pvt_Extensions
+
+# Paket dependency manager
+.paket/paket.exe
+paket-files/
+
+# FAKE - F# Make
+.fake/
+
+# Node.js Tools for Visual Studio
+.ntvs_analysis.dat
+node_modules/
+
+# Python Tools for Visual Studio
+__pycache__/
+*.pyc
+
+# BizTalk build output
+*.btp.cs
+*.btm.cs
+*.odx.cs
+*.xsd.cs
+
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# MigrationBackup
+MigrationBackup/
+
+################################################################################
+# VS Code (for those who might use it)
+################################################################################
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+################################################################################
+# OS-specific files
+################################################################################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

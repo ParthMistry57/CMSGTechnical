@@ -1,4 +1,4 @@
-﻿using CMSGTechnical.Domain.Models;
+using CMSGTechnical.Domain.Models;
 using CMSGTechnical.Mediator.Basket;
 using CMSGTechnical.Mediator.Dtos;
 using MediatR;
@@ -18,23 +18,28 @@ namespace CMSGTechnical.Code
 
         public event EventHandler<BasketChangedEventArgs> OnChange;
 
-        public BasketDto Basket { get; }
+        public BasketDto Basket { get; private set; }
 
-        public BasketService(BasketDto basket)
+        private readonly IMediator _mediator;
+
+        public BasketService(BasketDto basket, IMediator mediator)
         {
             Basket = basket;
+            _mediator = mediator;
         }
 
 
         public async Task Add(MenuItemDto item)
         {
-            Basket.MenuItems.Add(item);
+            var updatedBasket = await _mediator.Send(new AddItemToBasket(Basket.Id, item.Id));
+            Basket = updatedBasket;
             OnChange(this, new BasketChangedEventArgs(){Basket = Basket});
         }
 
         public async Task Remove(MenuItemDto item)
         {
-            Basket.MenuItems.Remove(item);
+            var updatedBasket = await _mediator.Send(new RemoveItemFromBasket(Basket.Id, item.Id));
+            Basket = updatedBasket;
             OnChange(this, new BasketChangedEventArgs() { Basket = Basket });
         }
 

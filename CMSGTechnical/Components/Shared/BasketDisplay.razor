@@ -1,4 +1,4 @@
-﻿@using CMSGTechnical.Code
+@using CMSGTechnical.Code
 @using CMSGTechnical.Domain.Models
 @using CMSGTechnical.Mediator.Basket
 @using CMSGTechnical.Mediator.Dtos
@@ -15,8 +15,8 @@
             </div>
             
             <div>
-                <button class="btn btn-primary btn-round" @onclick="() => Basket.MenuItems.Add(item)">+</button>
-                <button class="btn btn-primary btn-round" @onclick="() => Basket.MenuItems.Remove(item)">-</button>
+                <button class="btn btn-primary btn-round" @onclick="() => AddItem(item)">+</button>
+                <button class="btn btn-primary btn-round" @onclick="() => Remove(item)">-</button>
             </div>
         </div>
     }
@@ -33,26 +33,25 @@
 
     [Inject] private IMediator Mediator { get; set; } = default!;
 
-    private BasketDto Basket { get; set; } = new();
     [CascadingParameter]
     private BasketService BasketService { get; set; }
 
+    private BasketDto Basket => BasketService.Basket;
+
     protected override void OnInitialized()
     {
-        Basket = BasketService.Basket;
         BasketService.OnChange += (sender, args) => StateHasChanged();
     }
 
 
-    public void AddItem(MenuItemDto item)
+    private async Task AddItem(MenuItemDto item)
     {
-        Basket.MenuItems.Add(item);
-        StateHasChanged();
+        await BasketService.Add(item);
     }
 
-    public void Remove(MenuItemDto item)
+    private async Task Remove(MenuItemDto item)
     {
-        Basket.MenuItems.Remove(item);
+        await BasketService.Remove(item);
     }
 
 
