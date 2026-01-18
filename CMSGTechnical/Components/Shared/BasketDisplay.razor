@@ -22,7 +22,14 @@
     }
     
     <div class="mt-3">
-        Total: £@Basket.MenuItems.Sum(i=>i.Price).ToString("F2")
+        @{
+            var subtotal = CalculateSubtotal();
+            var deliveryFee = 2.00m;
+            var total = subtotal + deliveryFee;
+        }
+        <div>Subtotal: £@subtotal.ToString("F2")</div>
+        <div>Delivery: £@deliveryFee.ToString("F2")</div>
+        <div><strong>Total: £@total.ToString("F2")</strong></div>
     </div>
 </div>
 
@@ -54,5 +61,9 @@
         await BasketService.Remove(item);
     }
 
+    private decimal CalculateSubtotal()
+    {
+        return Basket.MenuItems.Sum(i => i.Price);
+    }
 
 }
