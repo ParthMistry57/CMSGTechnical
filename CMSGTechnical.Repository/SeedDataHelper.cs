@@ -59,6 +59,7 @@ internal static class SeedDataHelper
             {
                 Id = id++, Order = 0,
                 Name = "Vegetable Stir Fry",
+                Description = "Fresh mixed vegetables stir-fried in a savory sauce.",
                 Price = 11.99m
             },
             new
