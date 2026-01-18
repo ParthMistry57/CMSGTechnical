@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace CMSGTechnical.Mediator.Menu
 
         public async Task<IEnumerable<MenuItemDto>> Handle(GetMenuItems request, CancellationToken cancellationToken)
         {
-            var q = MenuItems.GetAll();
+            var q = MenuItems.GetAll().OrderBy(m => m.Price);
             var r = await q.ToListAsync(cancellationToken);
             return r.ToDto();
         }
