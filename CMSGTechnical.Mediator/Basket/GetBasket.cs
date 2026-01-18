@@ -14,7 +14,6 @@ namespace CMSGTechnical.Mediator.Basket
 
     public class GetBasketHandler : IRequestHandler<GetBasket, BasketDto>
     {
-
         private IRepo<Domain.Models.Basket> Baskets { get; }
 
         public GetBasketHandler(IRepo<Domain.Models.Basket> baskets)
@@ -24,7 +23,7 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(GetBasket request, CancellationToken cancellationToken)
         {
-            var query = Baskets.GetAll().Where(b => b.Id == request.Id).Include(b => b.MenuItems);
+            var query = Baskets.GetAll().Where(b => b.Id == request.Id).Include(b => b.MenuItems.OrderBy(m => m.Id));
             var r = await query.FirstOrDefaultAsync(cancellationToken);
             if (r == null)
                 throw new InvalidOperationException($"Basket with id {request.Id} not found");

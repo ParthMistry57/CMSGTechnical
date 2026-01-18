@@ -1,4 +1,4 @@
-﻿using CMSGTechnical.Domain.Models;
+using CMSGTechnical.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CMSGTechnical.Repository;
@@ -94,6 +94,7 @@ internal static class SeedDataHelper
             {
                 Id = id++, Order = 0,
                 Name = "Chocolate Cake",
+                Description = "Rich and moist chocolate cake with chocolate frosting.",
                 Price = 6.99m
             }
         );

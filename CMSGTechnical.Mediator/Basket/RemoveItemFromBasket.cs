@@ -21,7 +21,7 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(RemoveItemFromBasket request, CancellationToken cancellationToken)
         {
-            var basketQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems);
+            var basketQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
             var basket = await basketQuery.FirstOrDefaultAsync(cancellationToken);
             if (basket == null)
                 throw new InvalidOperationException($"Basket with id {request.BasketId} not found");
@@ -34,7 +34,7 @@ namespace CMSGTechnical.Mediator.Basket
             }
 
             // Reload with fresh query to get updated state
-            var reloadQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems);
+            var reloadQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
             var updatedBasket = await reloadQuery.FirstOrDefaultAsync(cancellationToken);
             return updatedBasket!.ToDto();
         }
