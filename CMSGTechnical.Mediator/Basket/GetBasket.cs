@@ -23,7 +23,10 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(GetBasket request, CancellationToken cancellationToken)
         {
-            var query = Baskets.GetAll().Where(b => b.Id == request.Id).Include(b => b.MenuItems.OrderBy(m => m.Id));
+            var query = Baskets.GetAll()
+                .Where(b => b.Id == request.Id)
+                .Include(b => b.BasketItems.OrderBy(bi => bi.Id))
+                    .ThenInclude(bi => bi.MenuItem);
             var r = await query.FirstOrDefaultAsync(cancellationToken);
             if (r == null)
                 throw new InvalidOperationException($"Basket with id {request.Id} not found");

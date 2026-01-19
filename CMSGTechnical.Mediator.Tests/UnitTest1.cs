@@ -90,7 +90,7 @@ namespace CMSGTechnical.Mediator.Tests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(1, result.Id);
-            Assert.NotNull(result.MenuItems);
+            Assert.NotNull(result.BasketItems);
         }
     }
 
@@ -117,7 +117,7 @@ namespace CMSGTechnical.Mediator.Tests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(1, result.Id);
-            Assert.Contains(result.MenuItems, m => m.Id == 1);
+            Assert.Contains(result.BasketItems, bi => bi.MenuItem.Id == 1);
         }
     }
 

@@ -6,16 +6,16 @@
 
 <div class="basket">
     
-    @foreach (var item in Basket.MenuItems)
+    @foreach (var basketItem in Basket.BasketItems)
     {
         <div class="basket-item">
             <div class="basket-item-name">
-                @item.Name - £@item.Price.ToString("F2")
+                @basketItem.MenuItem.Name - £@basketItem.MenuItem.Price.ToString("F2") x @basketItem.Quantity
             </div>
             
             <div class="basket-item-actions">
-                <button class="btn btn-primary btn-round" @onclick="() => AddItem(item)">+</button>
-                <button class="btn btn-primary btn-round" @onclick="() => Remove(item)">-</button>
+                <button class="btn btn-primary btn-round" @onclick="() => AddItem(basketItem.MenuItem)">+</button>
+                <button class="btn btn-primary btn-round" @onclick="() => Remove(basketItem.MenuItem)">-</button>
             </div>
         </div>
     }
@@ -62,7 +62,7 @@
 
     private decimal CalculateSubtotal()
     {
-        return Basket.MenuItems.Sum(i => i.Price);
+        return Basket.BasketItems.Sum(bi => bi.MenuItem.Price * bi.Quantity);
     }
 
 }

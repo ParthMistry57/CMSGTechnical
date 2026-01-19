@@ -1,12 +1,18 @@
-﻿using CMSGTechnical.Domain.Interfaces;
+using CMSGTechnical.Domain.Interfaces;
 using CMSGTechnical.Domain.Models;
 
 namespace CMSGTechnical.Mediator.Dtos
 {
+    public class BasketItemDto
+    {
+        public MenuItemDto MenuItem { get; set; } = null!;
+        public int Quantity { get; set; }
+    }
+
     public class BasketDto
     {
         public int Id { get; set; }
-        public ICollection<MenuItemDto> MenuItems { get; set; } = new List<MenuItemDto>();
+        public ICollection<BasketItemDto> BasketItems { get; set; } = new List<BasketItemDto>();
 
         public int UserId { get; set; }
 
@@ -25,7 +31,11 @@ namespace CMSGTechnical.Mediator.Dtos
             return new BasketDto()
             {
                 Id = model.Id,
-                MenuItems = model.MenuItems.ToDto().ToList(),
+                BasketItems = model.BasketItems.Select(bi => new BasketItemDto
+                {
+                    MenuItem = bi.MenuItem.ToDto(),
+                    Quantity = bi.Quantity
+                }).ToList(),
                 UserId = model.UserId
             };
         }

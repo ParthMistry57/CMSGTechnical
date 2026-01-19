@@ -21,20 +21,35 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(RemoveItemFromBasket request, CancellationToken cancellationToken)
         {
-            var basketQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
+            var basketQuery = Baskets.GetAll()
+                .Where(b => b.Id == request.BasketId)
+                .Include(b => b.BasketItems.OrderBy(bi => bi.Id))
+                    .ThenInclude(bi => bi.MenuItem);
             var basket = await basketQuery.FirstOrDefaultAsync(cancellationToken);
             if (basket == null)
                 throw new InvalidOperationException($"Basket with id {request.BasketId} not found");
 
-            var menuItem = basket.MenuItems.FirstOrDefault(m => m.Id == request.MenuItemId);
-            if (menuItem != null)
+            var basketItem = basket.BasketItems.FirstOrDefault(bi => bi.MenuItemId == request.MenuItemId);
+            if (basketItem != null)
             {
-                basket.MenuItems.Remove(menuItem);
+                if (basketItem.Quantity > 1)
+                {
+                    // Decrement quantity
+                    basketItem.Quantity--;
+                }
+                else
+                {
+                    // Remove item completely
+                    basket.BasketItems.Remove(basketItem);
+                }
                 await Baskets.Update(basket, cancellationToken);
             }
 
             // Reload with fresh query to get updated state
-            var reloadQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
+            var reloadQuery = Baskets.GetAll()
+                .Where(b => b.Id == request.BasketId)
+                .Include(b => b.BasketItems.OrderBy(bi => bi.Id))
+                    .ThenInclude(bi => bi.MenuItem);
             var updatedBasket = await reloadQuery.FirstOrDefaultAsync(cancellationToken);
             return updatedBasket!.ToDto();
         }

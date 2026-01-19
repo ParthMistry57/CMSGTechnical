@@ -23,7 +23,10 @@ namespace CMSGTechnical.Mediator.Basket
 
         public async Task<BasketDto> Handle(AddItemToBasket request, CancellationToken cancellationToken)
         {
-            var basketQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
+            var basketQuery = Baskets.GetAll()
+                .Where(b => b.Id == request.BasketId)
+                .Include(b => b.BasketItems.OrderBy(bi => bi.Id))
+                    .ThenInclude(bi => bi.MenuItem);
             var basket = await basketQuery.FirstOrDefaultAsync(cancellationToken);
             if (basket == null)
                 throw new InvalidOperationException($"Basket with id {request.BasketId} not found");
@@ -32,12 +35,32 @@ namespace CMSGTechnical.Mediator.Basket
             if (menuItem == null)
                 throw new InvalidOperationException($"MenuItem with id {request.MenuItemId} not found");
 
-            // Add item to basket
-            basket.MenuItems.Add(menuItem);
+            // Check if item already exists in basket
+            var existingBasketItem = basket.BasketItems.FirstOrDefault(bi => bi.MenuItemId == request.MenuItemId);
+            if (existingBasketItem != null)
+            {
+                // Increment quantity
+                existingBasketItem.Quantity++;
+            }
+            else
+            {
+                // Create new basket item
+                var newBasketItem = new Domain.Models.BasketItem
+                {
+                    BasketId = basket.Id,
+                    MenuItemId = menuItem.Id,
+                    Quantity = 1
+                };
+                basket.BasketItems.Add(newBasketItem);
+            }
+
             await Baskets.Update(basket, cancellationToken);
 
             // Reload with fresh query to get updated state
-            var reloadQuery = Baskets.GetAll().Where(b => b.Id == request.BasketId).Include(b => b.MenuItems.OrderBy(m => m.Id));
+            var reloadQuery = Baskets.GetAll()
+                .Where(b => b.Id == request.BasketId)
+                .Include(b => b.BasketItems.OrderBy(bi => bi.Id))
+                    .ThenInclude(bi => bi.MenuItem);
             var updatedBasket = await reloadQuery.FirstOrDefaultAsync(cancellationToken);
             return updatedBasket!.ToDto();
         }
