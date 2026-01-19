@@ -8,20 +8,19 @@
     
     @foreach (var item in Basket.MenuItems)
     {
-
-        <div>
-            <div>
+        <div class="basket-item">
+            <div class="basket-item-name">
                 @item.Name - £@item.Price.ToString("F2")
             </div>
             
-            <div>
+            <div class="basket-item-actions">
                 <button class="btn btn-primary btn-round" @onclick="() => AddItem(item)">+</button>
                 <button class="btn btn-primary btn-round" @onclick="() => Remove(item)">-</button>
             </div>
         </div>
     }
     
-    <div class="mt-3">
+    <div class="basket-total">
         @{
             var subtotal = CalculateSubtotal();
             var deliveryFee = 2.00m;
