@@ -10,8 +10,15 @@
 
 
 
-@foreach (var item in MenuItems) {
-    <MenuItemDisplay Item="@item" OnAdd="AddItem" />
+@foreach (var categoryGroup in MenuItems.GroupBy(m => m.Category).OrderBy(g => GetCategoryOrder(g.Key)))
+{
+    <div class="mb-4">
+        <h3 class="mb-2"><strong>@categoryGroup.Key</strong></h3>
+        @foreach (var item in categoryGroup)
+        {
+            <MenuItemDisplay Item="@item" OnAdd="AddItem" />
+        }
+    </div>
 }
 
 
@@ -34,6 +41,17 @@
     private async Task AddItem(MenuItemDto item)
     {
         await Basket.Add(item);
+    }
+
+    private int GetCategoryOrder(string category)
+    {
+        return category switch
+        {
+            "Starter" => 1,
+            "Main" => 2,
+            "Dessert" => 3,
+            _ => 99
+        };
     }
     
 }
