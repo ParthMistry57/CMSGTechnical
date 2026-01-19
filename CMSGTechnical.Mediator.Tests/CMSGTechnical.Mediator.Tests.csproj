@@ -20,4 +20,16 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CMSGTechnical.Mediator\CMSGTechnical.Mediator.csproj" />
+    <ProjectReference Include="..\CMSGTechnical.Repository\CMSGTechnical.Repository.csproj" />
+    <ProjectReference Include="..\CMSGTechnical.Domain\CMSGTechnical.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
